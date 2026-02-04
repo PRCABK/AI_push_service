@@ -28,4 +28,16 @@ public class SysAiConfig extends BaseEntity {
 
     /** 温度参数 */
     private Double temperature;
+
+    /** 输出最大 Token 数 */
+    private Integer maxTokens;
+
+    /** TopP 采样 */
+    private Double topP;
+
+    /** Presence Penalty */
+    private Double presencePenalty;
+
+    /** Frequency Penalty */
+    private Double frequencyPenalty;
 }

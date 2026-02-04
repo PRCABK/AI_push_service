@@ -3,17 +3,23 @@
 <mapper namespace="com.ruoyi.pushtool.mapper.SysAiConfigMapper">
 
     <resultMap type="SysAiConfig" id="SysAiConfigResult">
-        <result property="id"    column="id"    />
-        <result property="configName"    column="config_name"    />
-        <result property="apiKey"    column="api_key"    />
-        <result property="apiUrl"    column="api_url"    />
-        <result property="modelName"    column="model_name"    />
-        <result property="temperature"    column="temperature"    />
-        <result property="remark"    column="remark"    />
+        <result property="id" column="id" />
+        <result property="configName" column="config_name" />
+        <result property="apiKey" column="api_key" />
+        <result property="apiUrl" column="api_url" />
+        <result property="modelName" column="model_name" />
+        <result property="temperature" column="temperature" />
+        <result property="maxTokens" column="max_tokens" />
+        <result property="topP" column="top_p" />
+        <result property="presencePenalty" column="presence_penalty" />
+        <result property="frequencyPenalty" column="frequency_penalty" />
+        <result property="remark" column="remark" />
     </resultMap>
 
     <sql id="selectSysAiConfigVo">
-        select id, config_name, api_key, api_url, model_name, temperature, remark from sys_ai_config
+        select id, config_name, api_key, api_url, model_name, temperature, max_tokens, top_p, presence_penalty,
+               frequency_penalty, remark
+        from sys_ai_config
     </sql>
 
     <select id="selectSysAiConfigList" parameterType="SysAiConfig" resultMap="SysAiConfigResult">
@@ -22,8 +28,9 @@
             <if test="configName != null  and configName != ''"> and config_name like concat('%', #{configName}, '%')</if>
             <if test="apiKey != null  and apiKey != ''"> and api_key = #{apiKey}</if>
             <if test="apiUrl != null  and apiUrl != ''"> and api_url = #{apiUrl}</if>
-            <if test="modelName != null  and modelName != ''"> and model_name like concat('%', #{modelName}, '%')</if>
             <if test="temperature != null "> and temperature = #{temperature}</if>
+            <if test="modelName != null  and modelName != ''"> and model_name like concat('%', #{modelName}, '%')</if>
+            <if test="maxTokens != null "> and max_tokens = #{maxTokens}</if>
         </where>
     </select>
 
@@ -35,6 +42,10 @@
             <if test="apiUrl != null">api_url,</if>
             <if test="modelName != null">model_name,</if>
             <if test="temperature != null">temperature,</if>
+            <if test="maxTokens != null">max_tokens,</if>
+            <if test="topP != null">top_p,</if>
+            <if test="presencePenalty != null">presence_penalty,</if>
+            <if test="frequencyPenalty != null">frequency_penalty,</if>
             <if test="remark != null">remark,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -43,6 +54,10 @@
             <if test="apiUrl != null">#{apiUrl},</if>
             <if test="modelName != null">#{modelName},</if>
             <if test="temperature != null">#{temperature},</if>
+            <if test="maxTokens != null">#{maxTokens},</if>
+            <if test="topP != null">#{topP},</if>
+            <if test="presencePenalty != null">#{presencePenalty},</if>
+            <if test="frequencyPenalty != null">#{frequencyPenalty},</if>
             <if test="remark != null">#{remark},</if>
         </trim>
     </insert>
@@ -55,6 +70,10 @@
             <if test="apiUrl != null">api_url = #{apiUrl},</if>
             <if test="modelName != null">model_name = #{modelName},</if>
             <if test="temperature != null">temperature = #{temperature},</if>
+            <if test="maxTokens != null">max_tokens = #{maxTokens},</if>
+            <if test="topP != null">top_p = #{topP},</if>
+            <if test="presencePenalty != null">presence_penalty = #{presencePenalty},</if>
+            <if test="frequencyPenalty != null">frequency_penalty = #{frequencyPenalty},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>
         where id = #{id}
@@ -72,7 +91,9 @@
     </delete>
 
     <select id="selectSysAiConfigById" parameterType="Long" resultMap="SysAiConfigResult">
-        select id, config_name, api_key, api_url, model_name, temperature from sys_ai_config where id = #{id}
+        select id, config_name, api_key, api_url, model_name, temperature, max_tokens, top_p,
+               presence_penalty, frequency_penalty, remark
+        from sys_ai_config where id = #{id}
     </select>
 
 </mapper>

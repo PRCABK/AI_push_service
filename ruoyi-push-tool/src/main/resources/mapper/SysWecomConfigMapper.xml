@@ -2,15 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.pushtool.mapper.SysWecomConfigMapper">
     <resultMap type="SysWecomConfig" id="SysWecomConfigResult">
-        <result property="id" column="id" />
-        <result property="corpId" column="corp_id" />
-        <result property="secret" column="secret" />
-        <result property="agentId" column="agent_id" />
-        <result property="defaultUser" column="default_user" />
+        <result property="id" column="id"/>
+        <result property="configName" column="config_name"/>
+        <result property="corpId" column="corp_id"/>
+        <result property="secret" column="secret"/>
+        <result property="agentId" column="agent_id"/>
+        <result property="defaultUser" column="default_user"/>
+        <result property="defaultParty" column="default_party"/>
+        <result property="receiverGroups" column="receiver_groups"/>
+        <result property="defaultMsgType" column="default_msg_type"/>
+        <result property="textTemplate" column="text_template"/>
+        <result property="cardTitleTemplate" column="card_title_template"/>
+        <result property="cardContentTemplate" column="card_content_template"/>
+        <result property="cardUrlTemplate" column="card_url_template"/>
+        <result property="cardBtnText" column="card_btn_text"/>
+        <result property="remark" column="remark"/>
     </resultMap>
 
     <sql id="selectSysWecomConfigVo">
-        select id, config_name, corp_id, secret, agent_id, default_user from sys_wecom_config
+        select id, config_name, corp_id, secret, agent_id, default_user, default_party, receiver_groups,
+               default_msg_type, text_template, card_title_template, card_content_template, card_url_template,
+               card_btn_text, remark
+        from sys_wecom_config
     </sql>
 
     <select id="selectSysWecomConfigList" parameterType="SysWecomConfig" resultMap="SysWecomConfigResult">
@@ -21,6 +34,7 @@
             <if test="secret != null  and secret != ''"> and secret = #{secret}</if>
             <if test="agentId != null "> and agent_id = #{agentId}</if>
             <if test="defaultUser != null  and defaultUser != ''"> and default_user = #{defaultUser}</if>
+            <if test="defaultMsgType != null  and defaultMsgType != ''"> and default_msg_type = #{defaultMsgType}</if>
         </where>
     </select>
 
@@ -32,6 +46,15 @@
             <if test="secret != null and secret != ''">secret,</if>
             <if test="agentId != null">agent_id,</if>
             <if test="defaultUser != null">default_user,</if>
+            <if test="defaultParty != null">default_party,</if>
+            <if test="receiverGroups != null">receiver_groups,</if>
+            <if test="defaultMsgType != null">default_msg_type,</if>
+            <if test="textTemplate != null">text_template,</if>
+            <if test="cardTitleTemplate != null">card_title_template,</if>
+            <if test="cardContentTemplate != null">card_content_template,</if>
+            <if test="cardUrlTemplate != null">card_url_template,</if>
+            <if test="cardBtnText != null">card_btn_text,</if>
+            <if test="remark != null">remark,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="configName != null and configName != ''">#{configName},</if>
@@ -39,6 +62,15 @@
             <if test="secret != null and secret != ''">#{secret},</if>
             <if test="agentId != null">#{agentId},</if>
             <if test="defaultUser != null">#{defaultUser},</if>
+            <if test="defaultParty != null">#{defaultParty},</if>
+            <if test="receiverGroups != null">#{receiverGroups},</if>
+            <if test="defaultMsgType != null">#{defaultMsgType},</if>
+            <if test="textTemplate != null">#{textTemplate},</if>
+            <if test="cardTitleTemplate != null">#{cardTitleTemplate},</if>
+            <if test="cardContentTemplate != null">#{cardContentTemplate},</if>
+            <if test="cardUrlTemplate != null">#{cardUrlTemplate},</if>
+            <if test="cardBtnText != null">#{cardBtnText},</if>
+            <if test="remark != null">#{remark},</if>
         </trim>
     </insert>
 
@@ -50,6 +82,15 @@
             <if test="secret != null and secret != ''">secret = #{secret},</if>
             <if test="agentId != null">agent_id = #{agentId},</if>
             <if test="defaultUser != null">default_user = #{defaultUser},</if>
+            <if test="defaultParty != null">default_party = #{defaultParty},</if>
+            <if test="receiverGroups != null">receiver_groups = #{receiverGroups},</if>
+            <if test="defaultMsgType != null">default_msg_type = #{defaultMsgType},</if>
+            <if test="textTemplate != null">text_template = #{textTemplate},</if>
+            <if test="cardTitleTemplate != null">card_title_template = #{cardTitleTemplate},</if>
+            <if test="cardContentTemplate != null">card_content_template = #{cardContentTemplate},</if>
+            <if test="cardUrlTemplate != null">card_url_template = #{cardUrlTemplate},</if>
+            <if test="cardBtnText != null">card_btn_text = #{cardBtnText},</if>
+            <if test="remark != null">remark = #{remark},</if>
         </trim>
         where id = #{id}
     </update>
@@ -66,6 +107,9 @@
     </delete>
 
     <select id="selectSysWecomConfigById" parameterType="Long" resultMap="SysWecomConfigResult">
-        select id, corp_id, secret, agent_id, default_user from sys_wecom_config where id = #{id}
+        select id, config_name, corp_id, secret, agent_id, default_user, default_party, receiver_groups,
+               default_msg_type, text_template, card_title_template, card_content_template, card_url_template,
+               card_btn_text, remark
+        from sys_wecom_config where id = #{id}
     </select>
 </mapper>

@@ -12,8 +12,10 @@
                     <ul>
                         <li>配置名称：<input type="text" name="configName"/></li>
                         <li>模型名称：<input type="text" name="modelName"/></li>
-                        <li><a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i> 搜索</a></li>
-                        <li><a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i> 重置</a></li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i> 搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i> 重置</a>
+                        </li>
                     </ul>
                 </div>
             </form>
@@ -40,19 +42,29 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             modalName: "AI平台配置",
-            columns: [{checkbox: true},
+            columns: [
+                {checkbox: true},
                 {field: 'id', title: '编号', visible: false},
                 {field: 'configName', title: '配置名称'},
                 {field: 'modelName', title: '模型名称'},
-                {field: 'apiUrl', title: '接口地址', formatter: function(value){ return $.table.tooltip(value, 20); }},
-                {field: 'temperature', title: '温度'},
-                {field: 'remark', title: '备注'},
-                {title: '操作', align: 'center', formatter: function(value, row, index) {
+                {field: 'apiUrl', title: '接口地址', formatter: function(value){ return $.table.tooltip(value, 30); }},
+                {field: 'temperature', title: 'Temperature'},
+                {field: 'maxTokens', title: 'Max Tokens'},
+                {field: 'topP', title: 'TopP'},
+                {field: 'presencePenalty', title: 'Presence Penalty'},
+                {field: 'frequencyPenalty', title: 'Frequency Penalty'},
+                {field: 'remark', title: '备注', formatter: function(value){ return $.table.tooltip(value, 20); }},
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
-                    }}]
+                    }
+                }
+            ]
         };
         $.table.init(options);
     });

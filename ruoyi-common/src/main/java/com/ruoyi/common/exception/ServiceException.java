@@ -24,7 +24,7 @@ public final class ServiceException extends RuntimeException
     /**
      * 空构造方法，避免反序列化问题
      */
-    public ServiceException()
+    public ServiceException(String s, RuntimeException e)
     {
     }
 

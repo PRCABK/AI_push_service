@@ -20,6 +20,15 @@ public class SysAiPrompt extends BaseEntity {
     /** 调用Key */
     private String promptKey;
 
+    /** 场景名称 */
+    private String sceneName;
+
+    /** 场景编码 */
+    private String sceneCode;
+
+    /** 绑定 AI 配置 */
+    private Long aiConfigId;
+
     /** Prompt内容 */
     private String content;
 }

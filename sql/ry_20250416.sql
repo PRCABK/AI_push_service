@@ -720,3 +720,97 @@ create table gen_table_column (
   update_time       datetime                                   comment 'Êõ¥Êñ∞Êó∂Èó¥',
   primary key (column_id)
 ) engine=innodb auto_increment=1 comment = '‰ª£Á†ÅÁîüÊàê‰∏öÂä°Ë°®Â≠óÊÆµ';
+-- ----------------------------
+-- Table structure for sys_ai_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_ai_config`;
+CREATE TABLE `sys_ai_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `config_name` varchar(64) NOT NULL COMMENT '≈‰÷√√˚≥∆',
+  `api_key` varchar(255) NOT NULL COMMENT 'API Key',
+  `api_url` varchar(255) DEFAULT NULL COMMENT 'Ω”ø⁄µÿ÷∑',
+  `model_name` varchar(128) NOT NULL COMMENT 'ƒ£–Õ√˚≥∆',
+  `temperature` decimal(10,2) DEFAULT NULL COMMENT 'Œ¬∂»≤Œ ˝',
+  `max_tokens` int(11) DEFAULT NULL COMMENT '◊Ó¥ÛTokens',
+  `top_p` decimal(10,2) DEFAULT NULL COMMENT 'TopP',
+  `presence_penalty` decimal(10,2) DEFAULT NULL,
+  `frequency_penalty` decimal(10,2) DEFAULT NULL,
+  `remark` varchar(500) DEFAULT NULL,
+  `create_by` varchar(64) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(64) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='AI∆ΩÃ®≈‰÷√';
+
+-- ----------------------------
+-- Table structure for sys_ai_prompt
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_ai_prompt`;
+CREATE TABLE `sys_ai_prompt` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `prompt_name` varchar(128) NOT NULL COMMENT 'ƒ£∞Â√˚≥∆',
+  `prompt_key` varchar(128) NOT NULL COMMENT 'µ˜”√Key',
+  `scene_name` varchar(128) DEFAULT NULL COMMENT '≥°æ∞√˚≥∆',
+  `scene_code` varchar(64) DEFAULT NULL COMMENT '≥°æ∞±‡¬Î',
+  `ai_config_id` bigint(20) DEFAULT NULL COMMENT 'ƒ¨»œAI≈‰÷√',
+  `content` text NOT NULL COMMENT 'Promptƒ⁄»›',
+  `remark` varchar(500) DEFAULT NULL,
+  `create_by` varchar(64) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(64) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_prompt_key` (`prompt_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Ã· æ¥ ƒ£∞Â';
+
+-- ----------------------------
+-- Table structure for sys_wecom_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_wecom_config`;
+CREATE TABLE `sys_wecom_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `config_name` varchar(64) NOT NULL COMMENT '≈‰÷√√˚≥∆',
+  `corp_id` varchar(64) NOT NULL COMMENT '∆Û“µID',
+  `secret` varchar(128) NOT NULL COMMENT '∆Û“µSecret',
+  `agent_id` int(11) NOT NULL COMMENT 'AgentId',
+  `default_user` varchar(512) DEFAULT NULL COMMENT 'ƒ¨»œΩ” ’”√ªß',
+  `default_party` varchar(512) DEFAULT NULL COMMENT 'ƒ¨»œ≤ø√≈',
+  `receiver_groups` text COMMENT 'Ω” ’»À∑÷◊È(JSON)',
+  `default_msg_type` varchar(32) DEFAULT 'text' COMMENT 'ƒ¨»œœ˚œ¢¿‡–Õ',
+  `text_template` text COMMENT 'Œƒ±æƒ£∞Â',
+  `card_title_template` varchar(255) DEFAULT NULL,
+  `card_content_template` text,
+  `card_url_template` varchar(512) DEFAULT NULL,
+  `card_btn_text` varchar(64) DEFAULT NULL,
+  `remark` varchar(500) DEFAULT NULL,
+  `create_by` varchar(64) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(64) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Õ∆ÀÕ∆ΩÃ®≈‰÷√';
+
+-- ----------------------------
+-- Table structure for sys_push_task
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_push_task`;
+CREATE TABLE `sys_push_task` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `request_id` varchar(64) DEFAULT NULL COMMENT '«Î«ÛID',
+  `ai_config_id` bigint(20) DEFAULT NULL COMMENT 'AI≈‰÷√',
+  `wecom_config_id` bigint(20) DEFAULT NULL COMMENT 'Œ¢–≈≈‰÷√',
+  `prompt_key` varchar(128) DEFAULT NULL COMMENT 'Ã· æ¥ Key',
+  `msg_type` varchar(32) DEFAULT NULL COMMENT 'œ˚œ¢¿‡–Õ',
+  `receivers` varchar(512) DEFAULT NULL COMMENT 'Ω” ’»À',
+  `receiver_group` varchar(128) DEFAULT NULL COMMENT 'Ω” ’∑÷◊È',
+  `payload` text COMMENT 'Õ∆ÀÕ ˝æ›',
+  `ai_result` text COMMENT 'AIΩ·π˚øÏ’’',
+  `status` varchar(32) DEFAULT NULL COMMENT '◊¥Ã¨',
+  `error_msg` varchar(500) DEFAULT NULL COMMENT '¥ÌŒÛ–≈œ¢',
+  `send_time` datetime DEFAULT NULL COMMENT '∑¢ÀÕ ±º‰',
+  `create_by` varchar(64) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_push_task_request` (`request_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Õ∆ÀÕ»ŒŒÒº«¬º';

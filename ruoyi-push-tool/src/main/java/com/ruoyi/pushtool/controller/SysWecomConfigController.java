@@ -26,25 +26,26 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @date 2026-02-04
  */
 @Controller
-@RequestMapping("/pushtool/config")
+@RequestMapping("/pushtool/wecomConfig")
 public class SysWecomConfigController extends BaseController
 {
-    private String prefix = "pushtool/config";
+    private static final String PERMISSION_PREFIX = "pushtool:wecomConfig";
+    private final String prefix = "pushtool/wecomConfig";
 
     @Autowired
     private ISysWecomConfigService sysWecomConfigService;
 
-    @RequiresPermissions("system:config:view")
+    @RequiresPermissions(PERMISSION_PREFIX + ":view")
     @GetMapping()
-    public String config()
+    public String wecomConfig()
     {
-        return prefix + "/config";
+        return prefix + "/wecomConfig";
     }
 
     /**
      * 查询推送平台配置列表
      */
-    @RequiresPermissions("system:config:list")
+    @RequiresPermissions(PERMISSION_PREFIX + ":list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(SysWecomConfig sysWecomConfig)
@@ -57,7 +58,7 @@ public class SysWecomConfigController extends BaseController
     /**
      * 导出推送平台配置列表
      */
-    @RequiresPermissions("system:config:export")
+    @RequiresPermissions(PERMISSION_PREFIX + ":export")
     @Log(title = "推送平台配置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
@@ -71,7 +72,7 @@ public class SysWecomConfigController extends BaseController
     /**
      * 新增推送平台配置
      */
-    @RequiresPermissions("system:config:add")
+    @RequiresPermissions(PERMISSION_PREFIX + ":add")
     @GetMapping("/add")
     public String add()
     {
@@ -81,7 +82,7 @@ public class SysWecomConfigController extends BaseController
     /**
      * 新增保存推送平台配置
      */
-    @RequiresPermissions("system:config:add")
+    @RequiresPermissions(PERMISSION_PREFIX + ":add")
     @Log(title = "推送平台配置", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -93,7 +94,7 @@ public class SysWecomConfigController extends BaseController
     /**
      * 修改推送平台配置
      */
-    @RequiresPermissions("system:config:edit")
+    @RequiresPermissions(PERMISSION_PREFIX + ":edit")
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, ModelMap mmap)
     {
@@ -105,7 +106,7 @@ public class SysWecomConfigController extends BaseController
     /**
      * 修改保存推送平台配置
      */
-    @RequiresPermissions("system:config:edit")
+    @RequiresPermissions(PERMISSION_PREFIX + ":edit")
     @Log(title = "推送平台配置", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -117,7 +118,7 @@ public class SysWecomConfigController extends BaseController
     /**
      * 删除推送平台配置
      */
-    @RequiresPermissions("system:config:remove")
+    @RequiresPermissions(PERMISSION_PREFIX + ":remove")
     @Log(title = "推送平台配置", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody

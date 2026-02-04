@@ -3,14 +3,19 @@
 <mapper namespace="com.ruoyi.pushtool.mapper.SysAiPromptMapper">
 
     <resultMap type="SysAiPrompt" id="SysAiPromptResult">
-        <result property="id" column="id" />
-        <result property="promptName" column="prompt_name" />
-        <result property="promptKey" column="prompt_key" />
-        <result property="content" column="content" />
+        <result property="id" column="id"/>
+        <result property="promptName" column="prompt_name"/>
+        <result property="promptKey" column="prompt_key"/>
+        <result property="sceneName" column="scene_name"/>
+        <result property="sceneCode" column="scene_code"/>
+        <result property="aiConfigId" column="ai_config_id"/>
+        <result property="content" column="content"/>
+        <result property="remark" column="remark"/>
     </resultMap>
 
     <sql id="selectSysAiPromptVo">
-        select id, prompt_name, prompt_key, content from sys_ai_prompt
+        select id, prompt_name, prompt_key, scene_name, scene_code, ai_config_id, content, remark
+        from sys_ai_prompt
     </sql>
 
     <select id="selectSysAiPromptList" parameterType="SysAiPrompt" resultMap="SysAiPromptResult">
@@ -18,7 +23,8 @@
         <where>
             <if test="promptName != null  and promptName != ''"> and prompt_name like concat('%', #{promptName}, '%')</if>
             <if test="promptKey != null  and promptKey != ''"> and prompt_key = #{promptKey}</if>
-            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="sceneCode != null  and sceneCode != ''"> and scene_code = #{sceneCode}</if>
+            <if test="aiConfigId != null "> and ai_config_id = #{aiConfigId}</if>
         </where>
     </select>
 
@@ -32,12 +38,20 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="promptName != null and promptName != ''">prompt_name,</if>
             <if test="promptKey != null and promptKey != ''">prompt_key,</if>
+            <if test="sceneName != null and sceneName != ''">scene_name,</if>
+            <if test="sceneCode != null and sceneCode != ''">scene_code,</if>
+            <if test="aiConfigId != null">ai_config_id,</if>
             <if test="content != null and content != ''">content,</if>
+            <if test="remark != null and remark != ''">remark,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="promptName != null and promptName != ''">#{promptName},</if>
             <if test="promptKey != null and promptKey != ''">#{promptKey},</if>
+            <if test="sceneName != null and sceneName != ''">#{sceneName},</if>
+            <if test="sceneCode != null and sceneCode != ''">#{sceneCode},</if>
+            <if test="aiConfigId != null">#{aiConfigId},</if>
             <if test="content != null and content != ''">#{content},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
         </trim>
     </insert>
 
@@ -46,7 +60,11 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="promptName != null and promptName != ''">prompt_name = #{promptName},</if>
             <if test="promptKey != null and promptKey != ''">prompt_key = #{promptKey},</if>
+            <if test="sceneName != null and sceneName != ''">scene_name = #{sceneName},</if>
+            <if test="sceneCode != null and sceneCode != ''">scene_code = #{sceneCode},</if>
+            <if test="aiConfigId != null">ai_config_id = #{aiConfigId},</if>
             <if test="content != null and content != ''">content = #{content},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
         </trim>
         where id = #{id}
     </update>
@@ -62,12 +80,11 @@
         </foreach>
     </delete>
 
-
     <select id="selectByPromptKey" parameterType="String" resultMap="SysAiPromptResult">
-        select id, prompt_name, prompt_key, content
+        select id, prompt_name, prompt_key, scene_name, scene_code, ai_config_id, content, remark
         from sys_ai_prompt
         where prompt_key = #{promptKey}
-            limit 1
+        limit 1
     </select>
 
 </mapper>

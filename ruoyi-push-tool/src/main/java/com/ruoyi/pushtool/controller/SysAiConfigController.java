@@ -29,22 +29,23 @@ import com.ruoyi.common.core.page.TableDataInfo;
 @RequestMapping("/pushtool/aiConfig")
 public class SysAiConfigController extends BaseController
 {
-    private String prefix = "pushtool/aiConfig";
+    private static final String PERMISSION_PREFIX = "pushtool:aiConfig";
+    private final String prefix = "pushtool/aiConfig";
 
     @Autowired
     private ISysAiConfigService sysAiConfigService;
 
-    @RequiresPermissions("system:config:view")
+    @RequiresPermissions(PERMISSION_PREFIX + ":view")
     @GetMapping()
-    public String config()
+    public String aiConfig()
     {
-        return prefix + "/config";
+        return prefix + "/aiConfig";
     }
 
     /**
      * 查询AI平台配置列表
      */
-    @RequiresPermissions("system:config:list")
+    @RequiresPermissions(PERMISSION_PREFIX + ":list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(SysAiConfig sysAiConfig)
@@ -57,7 +58,7 @@ public class SysAiConfigController extends BaseController
     /**
      * 导出AI平台配置列表
      */
-    @RequiresPermissions("system:config:export")
+    @RequiresPermissions(PERMISSION_PREFIX + ":export")
     @Log(title = "AI平台配置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
@@ -71,7 +72,7 @@ public class SysAiConfigController extends BaseController
     /**
      * 新增AI平台配置
      */
-    @RequiresPermissions("system:config:add")
+    @RequiresPermissions(PERMISSION_PREFIX + ":add")
     @GetMapping("/add")
     public String add()
     {
@@ -81,7 +82,7 @@ public class SysAiConfigController extends BaseController
     /**
      * 新增保存AI平台配置
      */
-    @RequiresPermissions("system:config:add")
+    @RequiresPermissions(PERMISSION_PREFIX + ":add")
     @Log(title = "AI平台配置", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -93,7 +94,7 @@ public class SysAiConfigController extends BaseController
     /**
      * 修改AI平台配置
      */
-    @RequiresPermissions("system:config:edit")
+    @RequiresPermissions(PERMISSION_PREFIX + ":edit")
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, ModelMap mmap)
     {
@@ -105,7 +106,7 @@ public class SysAiConfigController extends BaseController
     /**
      * 修改保存AI平台配置
      */
-    @RequiresPermissions("system:config:edit")
+    @RequiresPermissions(PERMISSION_PREFIX + ":edit")
     @Log(title = "AI平台配置", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -117,7 +118,7 @@ public class SysAiConfigController extends BaseController
     /**
      * 删除AI平台配置
      */
-    @RequiresPermissions("system:config:remove")
+    @RequiresPermissions(PERMISSION_PREFIX + ":remove")
     @Log(title = "AI平台配置", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody
