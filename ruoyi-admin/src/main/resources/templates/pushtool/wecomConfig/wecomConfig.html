@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('微信推送配置列表')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var prefix = ctx + "pushtool/wecomConfig";
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            modalName: "微信配置",
+            columns: [{checkbox: true},
+                {field: 'id', title: '编号', visible: false},
+                {field: 'configName', title: '配置名称'},
+                {field: 'corpId', title: '企业ID'},
+                {field: 'agentId', title: '应用ID'},
+                {field: 'defaultUser', title: '默认接收人'},
+                {title: '操作', align: 'center', formatter: function(value, row, index) {
+                        return '<a class="btn btn-success btn-xs" href="#" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a>';
+                    }}]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>
