@@ -9,6 +9,67 @@
         <result property="defaultUser" column="default_user" />
     </resultMap>
 
+    <sql id="selectSysWecomConfigVo">
+        select id, config_name, corp_id, secret, agent_id, default_user from sys_wecom_config
+    </sql>
+
+    <select id="selectSysWecomConfigList" parameterType="SysWecomConfig" resultMap="SysWecomConfigResult">
+        <include refid="selectSysWecomConfigVo"/>
+        <where>
+            <if test="configName != null  and configName != ''"> and config_name like concat('%', #{configName}, '%')</if>
+            <if test="corpId != null  and corpId != ''"> and corp_id = #{corpId}</if>
+            <if test="secret != null  and secret != ''"> and secret = #{secret}</if>
+            <if test="agentId != null "> and agent_id = #{agentId}</if>
+            <if test="defaultUser != null  and defaultUser != ''"> and default_user = #{defaultUser}</if>
+        </where>
+    </select>
+
+    <select id="selectSysWecomConfigById" parameterType="Long" resultMap="SysWecomConfigResult">
+        <include refid="selectSysWecomConfigVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSysWecomConfig" parameterType="SysWecomConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_wecom_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="configName != null and configName != ''">config_name,</if>
+            <if test="corpId != null and corpId != ''">corp_id,</if>
+            <if test="secret != null and secret != ''">secret,</if>
+            <if test="agentId != null">agent_id,</if>
+            <if test="defaultUser != null">default_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="configName != null and configName != ''">#{configName},</if>
+            <if test="corpId != null and corpId != ''">#{corpId},</if>
+            <if test="secret != null and secret != ''">#{secret},</if>
+            <if test="agentId != null">#{agentId},</if>
+            <if test="defaultUser != null">#{defaultUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysWecomConfig" parameterType="SysWecomConfig">
+        update sys_wecom_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="configName != null and configName != ''">config_name = #{configName},</if>
+            <if test="corpId != null and corpId != ''">corp_id = #{corpId},</if>
+            <if test="secret != null and secret != ''">secret = #{secret},</if>
+            <if test="agentId != null">agent_id = #{agentId},</if>
+            <if test="defaultUser != null">default_user = #{defaultUser},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysWecomConfigById" parameterType="Long">
+        delete from sys_wecom_config where id = #{id}
+    </delete>
+
+    <delete id="deleteSysWecomConfigByIds" parameterType="String">
+        delete from sys_wecom_config where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="selectSysWecomConfigById" parameterType="Long" resultMap="SysWecomConfigResult">
         select id, corp_id, secret, agent_id, default_user from sys_wecom_config where id = #{id}
     </select>

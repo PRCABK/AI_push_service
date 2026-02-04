@@ -1,17 +1,27 @@
-package com.ruoyi.pushtool.mapper;
-
-import com.ruoyi.pushtool.domain.SysAiConfig;
-import org.apache.ibatis.annotations.Mapper;
+package com.ruoyi.pushtool.service;
 
 import java.util.List;
-@Mapper
-public interface SysAiConfigMapper {
-    /** 查询AI平台配置 */
-    SysAiConfig selectSysAiConfigById(Long id);
+import com.ruoyi.pushtool.domain.SysAiConfig;
+
+/**
+ * AI平台配置Service接口
+ * 
+ * @author ruoyi
+ * @date 2026-02-04
+ */
+public interface ISysAiConfigService 
+{
+    /**
+     * 查询AI平台配置
+     * 
+     * @param id AI平台配置主键
+     * @return AI平台配置
+     */
+    public SysAiConfig selectSysAiConfigById(Long id);
 
     /**
      * 查询AI平台配置列表
-     *
+     * 
      * @param sysAiConfig AI平台配置
      * @return AI平台配置集合
      */
@@ -19,7 +29,7 @@ public interface SysAiConfigMapper {
 
     /**
      * 新增AI平台配置
-     *
+     * 
      * @param sysAiConfig AI平台配置
      * @return 结果
      */
@@ -27,25 +37,25 @@ public interface SysAiConfigMapper {
 
     /**
      * 修改AI平台配置
-     *
+     * 
      * @param sysAiConfig AI平台配置
      * @return 结果
      */
     public int updateSysAiConfig(SysAiConfig sysAiConfig);
 
     /**
-     * 删除AI平台配置
-     *
+     * 批量删除AI平台配置
+     * 
+     * @param ids 需要删除的AI平台配置主键集合
+     * @return 结果
+     */
+    public int deleteSysAiConfigByIds(String ids);
+
+    /**
+     * 删除AI平台配置信息
+     * 
      * @param id AI平台配置主键
      * @return 结果
      */
     public int deleteSysAiConfigById(Long id);
-
-    /**
-     * 批量删除AI平台配置
-     *
-     * @param ids 需要删除的数据主键集合
-     * @return 结果
-     */
-    public int deleteSysAiConfigByIds(String[] ids);
 }

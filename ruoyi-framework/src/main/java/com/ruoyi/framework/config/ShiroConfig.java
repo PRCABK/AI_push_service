@@ -321,6 +321,7 @@ public class ShiroConfig
             permitAllUrl.forEach(url -> filterChainDefinitionMap.put(url, "anon"));
         }
         // 退出 logout地址，shiro去清除session
+        filterChainDefinitionMap.put("/push-tool/api/**", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
         filterChainDefinitionMap.put("/login", "anon,captchaValidate");

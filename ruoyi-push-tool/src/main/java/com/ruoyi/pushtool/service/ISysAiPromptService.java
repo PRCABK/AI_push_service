@@ -1,17 +1,19 @@
-package com.ruoyi.pushtool.mapper;
-
-import com.ruoyi.pushtool.domain.SysAiPrompt;
-import org.apache.ibatis.annotations.Mapper;
+package com.ruoyi.pushtool.service;
 
 import java.util.List;
+import com.ruoyi.pushtool.domain.SysAiPrompt;
 
-@Mapper
-public interface SysAiPromptMapper {
-    /** 根据PromptKey查询提示词 */
-    SysAiPrompt selectByPromptKey(String promptKey);
+/**
+ * 提示词模版Service接口
+ * 
+ * @author ruoyi
+ * @date 2026-02-04
+ */
+public interface ISysAiPromptService 
+{
     /**
      * 查询提示词模版
-     *
+     * 
      * @param id 提示词模版主键
      * @return 提示词模版
      */
@@ -19,7 +21,7 @@ public interface SysAiPromptMapper {
 
     /**
      * 查询提示词模版列表
-     *
+     * 
      * @param sysAiPrompt 提示词模版
      * @return 提示词模版集合
      */
@@ -27,7 +29,7 @@ public interface SysAiPromptMapper {
 
     /**
      * 新增提示词模版
-     *
+     * 
      * @param sysAiPrompt 提示词模版
      * @return 结果
      */
@@ -35,25 +37,25 @@ public interface SysAiPromptMapper {
 
     /**
      * 修改提示词模版
-     *
+     * 
      * @param sysAiPrompt 提示词模版
      * @return 结果
      */
     public int updateSysAiPrompt(SysAiPrompt sysAiPrompt);
 
     /**
-     * 删除提示词模版
-     *
+     * 批量删除提示词模版
+     * 
+     * @param ids 需要删除的提示词模版主键集合
+     * @return 结果
+     */
+    public int deleteSysAiPromptByIds(String ids);
+
+    /**
+     * 删除提示词模版信息
+     * 
      * @param id 提示词模版主键
      * @return 结果
      */
     public int deleteSysAiPromptById(Long id);
-
-    /**
-     * 批量删除提示词模版
-     *
-     * @param ids 需要删除的数据主键集合
-     * @return 结果
-     */
-    public int deleteSysAiPromptByIds(String[] ids);
 }
