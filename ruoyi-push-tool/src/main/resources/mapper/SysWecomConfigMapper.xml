@@ -24,11 +24,6 @@
         </where>
     </select>
 
-    <select id="selectSysWecomConfigById" parameterType="Long" resultMap="SysWecomConfigResult">
-        <include refid="selectSysWecomConfigVo"/>
-        where id = #{id}
-    </select>
-
     <insert id="insertSysWecomConfig" parameterType="SysWecomConfig" useGeneratedKeys="true" keyProperty="id">
         insert into sys_wecom_config
         <trim prefix="(" suffix=")" suffixOverrides=",">
